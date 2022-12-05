@@ -5,7 +5,7 @@ using TMPro;
 
 public class ObjectRay : MonoBehaviour
 {
-    public float distance = 10f;
+    public float distance = 5f;
     public TextMeshProUGUI textMeshProUGUI;
 
     RaycastHit hit;
@@ -15,8 +15,12 @@ public class ObjectRay : MonoBehaviour
     {
         if (Physics.Raycast(transform.position, transform.forward, out hit, distance))
         {
+            if (hit.GetType() == typeof(GameItem))
+            {
+                hit.collider.GetComponent<MeshRenderer>().material.SetColor("_BaseColor", Color.red);
+            }
             textMeshProUGUI.text = hit.collider.gameObject.name;
-            Debug.DrawRay(transform.position, transform.forward * distance, Color.red);
+            //Debug.DrawRay(transform.position, transform.forward * distance, Color.red);
         }
 
     }
