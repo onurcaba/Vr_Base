@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameItemTypeList : MonoBehaviour
+public class GameItem : MonoBehaviour
 {
     public enum GameItemType
     {
@@ -29,6 +29,8 @@ public class GameItemTypeList : MonoBehaviour
 
     private void Start()
     {
+
+
         switch (gameItemType)
         {
 
@@ -100,6 +102,4 @@ public class GameItemTypeList : MonoBehaviour
         }
 
     }
-
-
 }
