@@ -25,7 +25,6 @@ Material:
   m_ValidKeywords:
   - _METALLICSPECGLOSSMAP
   - _OCCLUSIONMAP
-  - _RECEIVE_SHADOWS_OFF
   m_InvalidKeywords: []
   m_LightmapFlags: 6
   m_EnableInstancingVariants: 0
@@ -154,7 +153,7 @@ Material:
     - _REFLECTIONS_IOR: 1.52
     - _REFLECTIONS_ROUGHNESS: 0
     - _REFLECTIONS_WEIGHT: 1
-    - _ReceiveShadows: 0
+    - _ReceiveShadows: 1
     - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1

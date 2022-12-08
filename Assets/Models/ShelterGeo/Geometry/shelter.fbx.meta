@@ -1,7 +1,7 @@
 fileFormatVersion: 2
-guid: 40086fc018313ae468946751f6239959
+guid: 60fed7c25a3ae3f4c9bcd0e3e79fe18a
 ModelImporter:
-  serializedVersion: 21202
+  serializedVersion: 21300
   internalIDToNameTable: []
   externalObjects:
   - first:
@@ -217,7 +217,7 @@ ModelImporter:
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 1
+    generateSecondaryUV: 0
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
@@ -269,6 +269,7 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
   userData: 
   assetBundleName: 
