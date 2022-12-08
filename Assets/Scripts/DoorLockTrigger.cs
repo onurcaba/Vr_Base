@@ -6,6 +6,7 @@ public class DoorLockTrigger : MonoBehaviour
 {
     public GameObject Door;
     public AudioSource doorAudio;
+    bool startFLag;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -13,7 +14,10 @@ public class DoorLockTrigger : MonoBehaviour
 
         if (other.CompareTag("DoorLockMale"))
         Door.GetComponent<Rigidbody>().isKinematic = true;
-        doorAudio.Play();
+        if (startFLag)
+        {
+            doorAudio.Play();
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -23,6 +27,8 @@ public class DoorLockTrigger : MonoBehaviour
         if (other.CompareTag("DoorLockMale"))
         Door.GetComponent<Rigidbody>().isKinematic = false;
         doorAudio.Play();
-
+        startFLag = true;
     }
+
+    
 }

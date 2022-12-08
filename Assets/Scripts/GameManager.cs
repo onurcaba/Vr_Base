@@ -2,9 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+
+    public TextMeshProUGUI firstItemText1;
+    public TextMeshProUGUI firstItemText2;
+    public TextMeshProUGUI firstItemText3;
+    public TextMeshProUGUI firstItemText4;
+    public TextMeshProUGUI firstItemText5;
 
     public enum GameItemType //GameItemTypeList
     {
@@ -45,5 +52,13 @@ public class GameManager : MonoBehaviour
             itemsToFind.Add(gameItemType1);
             allGameItemTypes.Remove(gameItemType1);
         }
+
+        firstItemText1.text = itemsToFind[0].ToString();
+        firstItemText2.text = itemsToFind[1].ToString();
+        firstItemText3.text = itemsToFind[2].ToString();
+        firstItemText4.text = itemsToFind[3].ToString();
+        firstItemText5.text = itemsToFind[4].ToString();
+
+
     }
 }
