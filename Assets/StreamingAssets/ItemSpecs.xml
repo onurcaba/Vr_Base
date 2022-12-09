@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfItemSpecs xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ItemSpecs>
+    <itemId>itemID0</itemId>
+    <itemName>item0</itemName>
+    <itemDescription>Hello0</itemDescription>
+  </ItemSpecs>
+  <ItemSpecs>
+    <itemId>itemID1</itemId>
+    <itemName>item1</itemName>
+    <itemDescription>Hello1</itemDescription>
+  </ItemSpecs>
+  <ItemSpecs>
+    <itemId>itemID2</itemId>
+    <itemName>item2</itemName>
+    <itemDescription>Hello2</itemDescription>
+  </ItemSpecs>
+  <ItemSpecs>
+    <itemId>itemID3</itemId>
+    <itemName>item3</itemName>
+    <itemDescription>Hello3</itemDescription>
+  </ItemSpecs>
+  <ItemSpecs>
+    <itemId>itemID4</itemId>
+    <itemName>item4</itemName>
+    <itemDescription>Hello4</itemDescription>
+  </ItemSpecs>
+</ArrayOfItemSpecs>

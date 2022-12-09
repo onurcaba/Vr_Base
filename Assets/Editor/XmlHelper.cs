@@ -5,9 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace ContentDesigner.Helpers
-{
-    public class XmlHelper
+
+    public static class XmlHelper
     {
         public static void Serialize(string filePath, object obj, Type objectType)
         {
@@ -41,4 +40,3 @@ namespace ContentDesigner.Helpers
         }
 
     }
-}

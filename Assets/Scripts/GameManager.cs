@@ -3,11 +3,49 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using TMPro;
+using System;
+using System.IO;
+using System.Xml.Serialization;
 
 public class ItemSpecs
 {
+    public string itemId; 
     public string itemName; 
     public string itemDescription;  
+}
+public static class XmlHelper
+{
+    public static void Serialize(string filePath, object obj, Type objectType)
+    {
+        try
+        {
+            XmlSerializer mySerializer = new XmlSerializer(objectType);
+            StreamWriter myWriter = new StreamWriter(filePath);
+            mySerializer.Serialize(myWriter, obj);
+            myWriter.Close();
+        }
+        catch (Exception E)
+        {
+        }
+    }
+    public static object Deserialize(string filePath, object obj, Type objectType)
+    {
+        try
+        {
+            if (File.Exists(filePath))
+            {
+                StreamReader fileURL = new StreamReader(filePath);
+                XmlSerializer mySerializer = new XmlSerializer(objectType);
+                obj = mySerializer.Deserialize(fileURL);
+                fileURL.Close();
+            }
+        }
+        catch (Exception E)
+        {
+        }
+        return obj;
+    }
+
 }
 
 public class GameManager : MonoBehaviour
@@ -44,13 +82,16 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        List<ItemSpecs> itemspecsList = new List<ItemSpecs>();
+        
+        XmlHelper.Deserialize(@"E:\GitHub\Vr_Base\Assets\StreamingAssets\ItemSpecs.xml", itemspecsList, typeof(List<ItemSpecs>));
         // Callecting all types of items.
         allGameItemTypes = System.Enum.GetValues(typeof(GameItemType)).Cast<GameItemType>().Select(v => v.ToString()).ToList();
 
         for (int i = 0; i < findingItemCount; i++)
         {
             // Adding Types of Items to find.
-            var gameItemType1 = allGameItemTypes[Random.Range(0, allGameItemTypes.Count)];
+            var gameItemType1 = allGameItemTypes[UnityEngine.Random.Range(0, allGameItemTypes.Count)];
             itemsToFind.Add(gameItemType1);
             allGameItemTypes.Remove(gameItemType1);
         }
