@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - DoorLockMale
+  - Text_Item_1
+  - Text_Item_2
+  - Text_Item_3
+  - Text_Item_4
+  - Text_Item_5
   layers:
   - Default
   - TransparentFX

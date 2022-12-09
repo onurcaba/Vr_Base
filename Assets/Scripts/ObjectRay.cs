@@ -11,8 +11,8 @@ public class ObjectRay : MonoBehaviour
 
     public TextMeshProUGUI youWinText;
 
-    public GameObject go = null;
-    GameObject goCurrent = null;
+    public GameItem go = null;
+    GameItem goCurrent = null;
 
     public GameManager manager;
 
@@ -34,7 +34,7 @@ public class ObjectRay : MonoBehaviour
 
         if (Physics.Raycast(transform.position, transform.forward, out hit, distance) && hit.collider.GetComponent<GameItem>() != null)
         {
-            go = hit.collider.gameObject;
+            go = hit.collider.gameObject.GetComponent<GameItem>();
 
 
             if (goCurrent != go)
@@ -47,13 +47,7 @@ public class ObjectRay : MonoBehaviour
 
                 Debug.Log("Game Objects are different");
 
-                //textMeshProUGUI.text = hit.collider.GetComponent<GameItem>().itemName;
-
-                Material mat = go.GetComponent<MeshRenderer>().material;
-                var currentEmissionColor = mat.GetColor("_EmissionColor");
-                //mat.SetColor("_EmissionColor", currentEmissionColor + new Color(0.2f, 0.2f, 0.2f));
-                mat.SetColor("_EmissionColor", whitehighligtColor);
-                mat.EnableKeyword("_EMISSION");
+                HighLightGameItem(go, whitehighligtColor);
 
                 goCurrent = go;
             }
@@ -88,15 +82,16 @@ public class ObjectRay : MonoBehaviour
 
         foreach (var item in manager.itemsToFind)
         {
+
+            // Make Green Forunded GamItem in list
             if (item == goCurrent.GetComponent<GameItem>().gameItemType.ToString() && !founded)
             {
-                Material mat = goCurrent.GetComponent<MeshRenderer>().material;
-                mat.SetColor("_EmissionColor", greenHighligtColor);
-                mat.EnableKeyword("_EMISSION");
+                HighLightGameItem(goCurrent , greenHighligtColor);
+
                 founded = true;
 
-                manager.itemsToFindTextElement[index].color = Color.green;
-                //manager.itemsToFind.Remove(item);
+                //manager.itemsToFindTextElement[index].color = Color.green;
+                manager.CheckItemInList(index);
 
                 if (manager.itemsToFind.Count == 0)
                 {
@@ -108,10 +103,33 @@ public class ObjectRay : MonoBehaviour
 
         if (!founded)
         {
-            Material mat = goCurrent.GetComponent<MeshRenderer>().material;
-            mat.SetColor("_EmissionColor", redHighligtColor);
-            mat.EnableKeyword("_EMISSION");
+            HighLightGameItem(goCurrent, redHighligtColor);
         }
     }
 
+    private void HighLightGameItem(GameItem _gameItem, Color _highLightColor)
+    {
+
+        if (_gameItem.GetComponent<Renderer>() != null)
+        {
+            Material mat = _gameItem.GetComponent<MeshRenderer>().material;
+            var currentEmissionColor = mat.GetColor("EmissionColor");
+
+            mat.SetColor("_EmissionColor", _highLightColor);
+            mat.EnableKeyword("_EMISSION");
+        }
+
+        else if (_gameItem.GetComponent<GameItem>().customMeshRenderer != null)
+        {
+            Material mat = _gameItem.GetComponent<GameItem>().customMeshRenderer.material;
+            var currentEmissionColor = mat.GetColor("EmissionColor");
+
+            mat.SetColor("_EmissionColor", _highLightColor);
+            mat.EnableKeyword("_EMISSION");
+        }
+        else
+        {
+            Debug.Log("No renderer in GameItem");
+        }
+    }
 }

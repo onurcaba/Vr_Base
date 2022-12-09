@@ -26,7 +26,7 @@ public class GameItem : MonoBehaviour
     public string itemDescription;
     public string itemName;
 
-
+    public Renderer customMeshRenderer;
 
     private void Start()
     {
