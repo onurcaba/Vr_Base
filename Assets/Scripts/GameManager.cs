@@ -4,12 +4,6 @@ using System.Linq;
 using UnityEngine;
 using TMPro;
 
-public class ItemSpecs
-{
-    public string itemName; 
-    public string itemDescription;  
-}
-
 public class GameManager : MonoBehaviour
 {
     public List<TextMeshProUGUI> itemsToFindTextElement = new List<TextMeshProUGUI>();
@@ -143,11 +137,10 @@ public class GameManager : MonoBehaviour
 
     public void CheckItemInList(int index)
     {
+        // Loop for Textmesh Items to find and fill in scene;
         for (int i = 0; i < 5; i++)
         {
             GameObject.FindGameObjectsWithTag("Text_Item_" + (index + 1).ToString())[i].GetComponent<TextMeshProUGUI>().color = Color.green;
-
         }
-
     }
 }

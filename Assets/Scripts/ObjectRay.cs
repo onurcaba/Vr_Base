@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Linq;
 
 public class ObjectRay : MonoBehaviour
 {
+    public LayerMask gameItemLayer;
+
     public float distance = 2f;
     public TextMeshProUGUI textMeshProUGUI;
     public TextMeshProUGUI textMeshProUGUI2;
 
     public TextMeshProUGUI youWinText;
 
-    public GameItem go = null;
-    GameItem goCurrent = null;
+    public GameItem pointedGameItem = null;
+    GameItem pointedGameItemCurrent = null;
+    GameItem checkingGameItem = null;
 
     public GameManager manager;
 
@@ -20,90 +24,114 @@ public class ObjectRay : MonoBehaviour
     public bool checkItem;
 
     public GameObject infoCanvas;
+
+    public Transform infoCanvasPoint;
     public TextMeshProUGUI infoCanvasText;
 
-    Color whitehighligtColor = new Color(0.2f, 0.2f, 0.2f);
-    Color greenHighligtColor = new Color(0.0f, 0.2f, 0.0f);
-    Color redHighligtColor = new Color(0.2f, 0.0f, 0.0f);
+    Color whitehighligtColor = new Color(0.3f, 0.3f, 0.3f);
+    Color greenHighligtColor = new Color(0.0f, 0.3f, 0.0f);
+    Color redHighligtColor = new Color(0.3f, 0.0f, 0.0f);
     Color defaultColor = Color.black;
 
+    public UITimer timer;
+    public int foundedItems;
 
+    private void Start()
+    {
+        Invoke("ActivateAndPositionInfoCanvas", 2);
+    }
     void Update()
     {
-        Color color = Color.white;
-
-        if (Physics.Raycast(transform.position, transform.forward, out hit, distance) && hit.collider.GetComponent<GameItem>() != null)
+        if (Physics.Raycast(transform.position, transform.forward, out hit, distance, gameItemLayer) && checkingGameItem == null)
         {
-            go = hit.collider.gameObject.GetComponent<GameItem>();
-
-
-            if (goCurrent != go)
+            if (hit.collider.GetComponent<GameItem>() != null)
             {
+                pointedGameItem = hit.collider.gameObject.GetComponent<GameItem>();
 
-                if (goCurrent != null)
+                if (pointedGameItemCurrent != pointedGameItem)
                 {
-                    goCurrent.GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", Color.black);
+                    if (pointedGameItemCurrent != null && pointedGameItemCurrent.GetComponent<Renderer>() != null)
+                    {
+                        UnhighlightGameItem(pointedGameItemCurrent);
+                    }
+
+                    HighLightGameItem(pointedGameItem, whitehighligtColor);
+
+                    pointedGameItemCurrent = pointedGameItem;
                 }
-
-                Debug.Log("Game Objects are different");
-
-                HighLightGameItem(go, whitehighligtColor);
-
-                goCurrent = go;
             }
-        }
 
-        else if (Physics.Raycast(transform.position, transform.forward, out hit, distance) && hit.collider.GetComponent<GameItem>() == null)
-        {
-            if (goCurrent != null)
+            else if (hit.collider.GetComponent<GameItem>() == null)
             {
-
-                goCurrent.GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", defaultColor);
+                if (pointedGameItemCurrent != null)
+                {
+                    UnhighlightGameItem(pointedGameItemCurrent);
+                }
+                pointedGameItemCurrent = null;
             }
-            goCurrent = null;
         }
 
+
+    }
+
+    private void UnhighlightGameItem(GameItem _gameitem)
+    {
+
+        Material[] mats = _gameitem.GetComponent<MeshRenderer>().materials;
+
+        foreach (var mat in mats)
+        {
+            mat.SetColor("_EmissionColor", Color.black);
+        }
     }
 
     public void CheckItemInList()
     {
-        infoCanvas.SetActive(true);
-        infoCanvas.transform.position = goCurrent.GetComponent<MeshRenderer>().bounds.center + new Vector3(0, goCurrent.GetComponent<MeshRenderer>().bounds.extents.y / 2, 0);
-        infoCanvas.transform.rotation = Quaternion.Euler(0, Camera.main.transform.rotation.eulerAngles.y, 0);
+        checkingGameItem = pointedGameItem;
 
-        infoCanvasText.text = goCurrent.GetComponent<GameItem>().itemDescription;
+        ActivateAndPositionInfoCanvas();
 
-
-        Debug.Log("Checking Item List");
         bool founded = false;
 
-
-        int index = 0;
-
-        foreach (var item in manager.itemsToFind)
+        foreach (var (item, i) in manager.itemsToFind.Select((value, i)=>(value,i)))
         {
-
             // Make Green Forunded GamItem in list
-            if (item == goCurrent.GetComponent<GameItem>().gameItemType.ToString() && !founded)
+            if (item == checkingGameItem.GetComponent<GameItem>().gameItemType.ToString() && !founded)
             {
-                HighLightGameItem(goCurrent , greenHighligtColor);
+                HighLightGameItem(checkingGameItem, greenHighligtColor);
 
                 founded = true;
 
                 //manager.itemsToFindTextElement[index].color = Color.green;
-                manager.CheckItemInList(index);
+                manager.CheckItemInList(i);
 
-                if (manager.itemsToFind.Count == 0)
+                // When this value reach 5 timer will stop and Game Finish
+                foundedItems++;
+
+                if (foundedItems == 5)
                 {
-                    youWinText.text = "You Win";
+                    timer.playing = false;
                 }
             }
-            index++;
         }
 
         if (!founded)
         {
-            HighLightGameItem(goCurrent, redHighligtColor);
+            HighLightGameItem(checkingGameItem, redHighligtColor);
+        }
+
+        StartCoroutine("UnhighlighCheckedGameItem");
+    }
+
+    private void ActivateAndPositionInfoCanvas()
+    {
+        infoCanvas.SetActive(true);
+        infoCanvas.transform.position = infoCanvasPoint.position;
+        infoCanvas.transform.rotation = Quaternion.Euler(infoCanvasPoint.localRotation.eulerAngles.x, infoCanvasPoint.rotation.eulerAngles.y, 0);
+
+        if (pointedGameItem != null)
+        {
+            infoCanvasText.text = pointedGameItem.GetComponent<GameItem>().itemDescription;
         }
     }
 
@@ -112,17 +140,22 @@ public class ObjectRay : MonoBehaviour
 
         if (_gameItem.GetComponent<Renderer>() != null)
         {
-            Material mat = _gameItem.GetComponent<MeshRenderer>().material;
-            var currentEmissionColor = mat.GetColor("EmissionColor");
+            Material[] mats = _gameItem.GetComponent<MeshRenderer>().materials;
 
-            mat.SetColor("_EmissionColor", _highLightColor);
-            mat.EnableKeyword("_EMISSION");
+            foreach (var mat in mats)
+            {
+
+                var currentEmissionColor = mat.GetColor("_EmissionColor");
+
+                mat.SetColor("_EmissionColor", _highLightColor);
+                mat.EnableKeyword("_EMISSION");
+            }
         }
 
         else if (_gameItem.GetComponent<GameItem>().customMeshRenderer != null)
         {
             Material mat = _gameItem.GetComponent<GameItem>().customMeshRenderer.material;
-            var currentEmissionColor = mat.GetColor("EmissionColor");
+            var currentEmissionColor = mat.GetColor("_EmissionColor");
 
             mat.SetColor("_EmissionColor", _highLightColor);
             mat.EnableKeyword("_EMISSION");
@@ -131,5 +164,20 @@ public class ObjectRay : MonoBehaviour
         {
             Debug.Log("No renderer in GameItem");
         }
+    }
+
+    IEnumerator UnhighlighCheckedGameItem()
+    {
+        yield return new WaitForSeconds(3);
+
+
+        Material[] mats = checkingGameItem.GetComponent<MeshRenderer>().materials;
+
+        foreach (var mat in mats)
+        {
+            mat.SetColor("_EmissionColor", defaultColor);
+        }
+
+        checkingGameItem = null;
     }
 }

@@ -10,6 +10,7 @@ TagManager:
   - Text_Item_3
   - Text_Item_4
   - Text_Item_5
+  - UITimer
   layers:
   - Default
   - TransparentFX
@@ -21,8 +22,8 @@ TagManager:
   - DoorLockMale
   - Shelter
   - Door
-  - 
-  - 
+  - UI2
+  - GameItem
   - 
   - 
   - 

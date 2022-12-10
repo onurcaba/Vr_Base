@@ -10,13 +10,15 @@ public class DoorLockTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("trigger enter");
-
-        if (other.CompareTag("DoorLockMale"))
-        Door.GetComponent<Rigidbody>().isKinematic = true;
         if (startFLag)
         {
-            doorAudio.Play();
+            Debug.Log("trigger enter");
+
+            if (other.CompareTag("DoorLockMale"))
+            {
+                Door.GetComponent<Rigidbody>().isKinematic = true;
+                doorAudio.Play();
+            }
         }
     }
 
@@ -25,10 +27,13 @@ public class DoorLockTrigger : MonoBehaviour
         Debug.Log("trigger exit");
 
         if (other.CompareTag("DoorLockMale"))
-        Door.GetComponent<Rigidbody>().isKinematic = false;
-        doorAudio.Play();
-        startFLag = true;
+        {
+            Door.GetComponent<Rigidbody>().isKinematic = false;
+
+            doorAudio.Play();
+            startFLag = true;
+        }
     }
 
-    
+
 }
