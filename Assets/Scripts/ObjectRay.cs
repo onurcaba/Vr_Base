@@ -44,6 +44,7 @@ public class ObjectRay : MonoBehaviour
     }
     void Update()
     {
+        // Hover GameItem
         if (Physics.Raycast(rayTransform.position, rayTransform.forward, out hit, distance, gameItemLayer) && checkingGameItem == null)
         {
             if (hit.collider.GetComponent<GameItem>() != null)
@@ -63,6 +64,7 @@ public class ObjectRay : MonoBehaviour
                 }
             }
 
+
             else if (hit.collider.GetComponent<GameItem>() == null)
             {
                 if (pointedGameItemCurrent != null)
@@ -76,19 +78,9 @@ public class ObjectRay : MonoBehaviour
 
     }
 
-    private void UnhighlightGameItem(GameItem _gameitem)
-    {
-
-        Material[] mats = _gameitem.GetComponent<MeshRenderer>().materials;
-
-        foreach (var mat in mats)
-        {
-            mat.SetColor("_EmissionColor", Color.black);
-        }
-    }
-
     public void CheckItemInList()
     {
+        // Check hovered GameItem is in list
         if (Physics.Raycast(rayTransform.position, rayTransform.forward, out hit, distance, gameItemLayer))
         {
             checkingGameItem = pointedGameItem;
@@ -152,7 +144,7 @@ public class ObjectRay : MonoBehaviour
 
                 var currentEmissionColor = mat.GetColor("_EmissionColor");
 
-                mat.SetColor("_EmissionColor", _highLightColor);
+                mat.SetColor("_EmissionColor", currentEmissionColor + _highLightColor);
                 mat.EnableKeyword("_EMISSION");
             }
         }
@@ -170,18 +162,22 @@ public class ObjectRay : MonoBehaviour
             Debug.Log("No renderer in GameItem");
         }
     }
+    private void UnhighlightGameItem(GameItem _gameitem)
+    {
+
+        Material[] mats = _gameitem.GetComponent<MeshRenderer>().materials;
+
+        foreach (var mat in mats)
+        {
+            mat.SetColor("_EmissionColor", Color.black);
+        }
+    }
 
     IEnumerator UnhighlighCheckedGameItem()
     {
         yield return new WaitForSeconds(3);
 
-
-        Material[] mats = checkingGameItem.GetComponent<MeshRenderer>().materials;
-
-        foreach (var mat in mats)
-        {
-            mat.SetColor("_EmissionColor", defaultColor);
-        }
+        UnhighlightGameItem(checkingGameItem);
 
         checkingGameItem = null;
     }
