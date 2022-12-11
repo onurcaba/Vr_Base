@@ -6,6 +6,8 @@ using System.Linq;
 
 public class ObjectRay : MonoBehaviour
 {
+    public Transform rayTransform;
+
     public LayerMask gameItemLayer;
 
     public float distance = 2f;
@@ -42,7 +44,7 @@ public class ObjectRay : MonoBehaviour
     }
     void Update()
     {
-        if (Physics.Raycast(transform.position, transform.forward, out hit, distance, gameItemLayer) && checkingGameItem == null)
+        if (Physics.Raycast(rayTransform.position, rayTransform.forward, out hit, distance, gameItemLayer) && checkingGameItem == null)
         {
             if (hit.collider.GetComponent<GameItem>() != null)
             {
@@ -87,40 +89,43 @@ public class ObjectRay : MonoBehaviour
 
     public void CheckItemInList()
     {
-        checkingGameItem = pointedGameItem;
-
-        ActivateAndPositionInfoCanvas();
-
-        bool founded = false;
-
-        foreach (var (item, i) in manager.itemsToFind.Select((value, i)=>(value,i)))
+        if (Physics.Raycast(rayTransform.position, rayTransform.forward, out hit, distance, gameItemLayer))
         {
-            // Make Green Forunded GamItem in list
-            if (item == checkingGameItem.GetComponent<GameItem>().gameItemType.ToString() && !founded)
+            checkingGameItem = pointedGameItem;
+
+            ActivateAndPositionInfoCanvas();
+
+            bool founded = false;
+
+            foreach (var (item, i) in manager.itemsToFind.Select((value, i) => (value, i)))
             {
-                HighLightGameItem(checkingGameItem, greenHighligtColor);
-
-                founded = true;
-
-                //manager.itemsToFindTextElement[index].color = Color.green;
-                manager.CheckItemInList(i);
-
-                // When this value reach 5 timer will stop and Game Finish
-                foundedItems++;
-
-                if (foundedItems == 5)
+                // Make Green Forunded GamItem in list
+                if (item == checkingGameItem.GetComponent<GameItem>().gameItemType.ToString() && !founded)
                 {
-                    timer.playing = false;
+                    HighLightGameItem(checkingGameItem, greenHighligtColor);
+
+                    founded = true;
+
+                    //manager.itemsToFindTextElement[index].color = Color.green;
+                    manager.CheckItemInList(i);
+
+                    // When this value reach 5 timer will stop and Game Finish
+                    foundedItems++;
+
+                    if (foundedItems == 5)
+                    {
+                        timer.playing = false;
+                    }
                 }
             }
-        }
 
-        if (!founded)
-        {
-            HighLightGameItem(checkingGameItem, redHighligtColor);
-        }
+            if (!founded)
+            {
+                HighLightGameItem(checkingGameItem, redHighligtColor);
+            }
 
-        StartCoroutine("UnhighlighCheckedGameItem");
+            StartCoroutine("UnhighlighCheckedGameItem"); 
+        }
     }
 
     private void ActivateAndPositionInfoCanvas()
