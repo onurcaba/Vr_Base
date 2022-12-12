@@ -35,12 +35,16 @@ public class ObjectRay : MonoBehaviour
     Color redHighligtColor = new Color(0.3f, 0.0f, 0.0f);
     Color defaultColor = Color.black;
 
-    public UITimer timer;
     public int foundedItems;
+    private bool firstItemfounded;
+    private bool secondItemfounded;
+    private bool thirdItemfounded;
+    private bool forthItemfounded;
+    private bool fifthItemfounded;
 
     private void Start()
     {
-        Invoke("ActivateAndPositionInfoCanvas", 2);
+        Invoke("ActivateAndPositionInfoCanvas", 0.5f);
     }
     void Update()
     {
@@ -103,10 +107,15 @@ public class ObjectRay : MonoBehaviour
 
                     // When this value reach 5 timer will stop and Game Finish
                     foundedItems++;
+                    if (i == 0) firstItemfounded = true;
+                    if (i == 1) secondItemfounded = true;
+                    if (i == 2) thirdItemfounded = true;
+                    if (i == 3) forthItemfounded = true;
+                    if (i == 4) fifthItemfounded = true;
 
-                    if (foundedItems == 5)
+                    if (firstItemfounded && secondItemfounded && thirdItemfounded && forthItemfounded && fifthItemfounded)
                     {
-                        timer.playing = false;
+                        manager.YouWin();
                     }
                 }
             }
@@ -116,7 +125,7 @@ public class ObjectRay : MonoBehaviour
                 HighLightGameItem(checkingGameItem, redHighligtColor);
             }
 
-            StartCoroutine("UnhighlighCheckedGameItem"); 
+            StartCoroutine("UnhighlighCheckedGameItem");
         }
     }
 

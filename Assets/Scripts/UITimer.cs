@@ -8,6 +8,10 @@ public class UITimer : MonoBehaviour
     public TextMeshProUGUI[] TimerTexts;
     public bool playing;
     public float timer;
+    public float gameDuration;
+
+    public string elappsedtimerText;
+
 
     void Update()
     {
@@ -36,6 +40,17 @@ public class UITimer : MonoBehaviour
 
             }
         }
+
+    }
+
+    public string ElappsedTime()
+    {
+        float elappsedTime = gameDuration - timer;
+        int minutes = Mathf.FloorToInt(elappsedTime / 60F);
+        int seconds = Mathf.FloorToInt(elappsedTime % 60F);
+        int milliseconds = Mathf.FloorToInt((elappsedTime * 100F) % 100F);
+
+        return elappsedtimerText = minutes.ToString("00") + ":" + seconds.ToString("00") + ":" + milliseconds.ToString("00");
 
     }
 

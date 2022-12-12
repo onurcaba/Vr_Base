@@ -6,6 +6,8 @@ using TMPro;
 public class GameSetiings : MonoBehaviour
 {
     float gameDuration;
+    public float maxGameDuration = 300f;
+    public float stepGameDuration = 30f;
 
     public TextMeshProUGUI[] PreviewTimerTexts;
 
@@ -14,20 +16,21 @@ public class GameSetiings : MonoBehaviour
     {
         gameDuration = PlayerPrefs.GetFloat(nameof(gameDuration));
         gameObject.GetComponent<UITimer>().timer = gameDuration;
+        gameObject.GetComponent<UITimer>().gameDuration = gameDuration;
 
         SetPreviewTimer();
     }
 
     public void setGameDuration()
     {
-        if (gameDuration < 180)
+        if (gameDuration < maxGameDuration)
         {
-            gameDuration += 30;
+            gameDuration += stepGameDuration;
         }
 
         else
         {
-            gameDuration = 30;
+            gameDuration = stepGameDuration;
         }
 
         SetPreviewTimer();

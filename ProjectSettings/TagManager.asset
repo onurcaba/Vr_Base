@@ -11,6 +11,15 @@ TagManager:
   - Text_Item_4
   - Text_Item_5
   - UITimer
+  - Text_Item_6
+  - Text_Item_7
+  - Text_Item_8
+  - Text_Item_9
+  - Text_Item_10
+  - Text_Item_11
+  - Text_Item_12
+  - Text_Item_13
+  - GameManager
   layers:
   - Default
   - TransparentFX
