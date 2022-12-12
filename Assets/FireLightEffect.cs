@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class FireLightEffect : MonoBehaviour
 {
-    Light light;
+    public float rate = 0.1f;
+
+    Light _light;
     private void Start()
     {
-        light = gameObject.GetComponent<Light>();
+        _light = gameObject.GetComponent<Light>();
 
-        InvokeRepeating("LightRandom", 0f, 0.1f);
+        InvokeRepeating("LightRandom", 0f, rate);
     }
 
     private void LightRandom()
     {
-        light.intensity = Random.Range(5, 20);
+        _light.intensity = Random.Range(5, 30);
     }
 }
