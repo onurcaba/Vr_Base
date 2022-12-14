@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -36,68 +36,68 @@ public class GameItem : MonoBehaviour
         {
 
             case GameItemType.BesMmCiftKatmanliCelikDisKabuk:
-                itemName = "5 mm çift katmanlı çelik dış kabuk";
-                itemDescription = "Kabinin yapısal dayanımını tarif eden bir bilgi çökmelere ve küçük çaplı patlamara dayanıklı yapı.";
+                itemName = "5 mm Ã§ift katmanlÄ± Ã§elik dÄ±ÅŸ kabuk";
+                itemDescription = "Kabinin yapÄ±sal dayanÄ±mÄ±nÄ± tarif eden bir bilgi Ã§Ã¶kmelere ve kÃ¼Ã§Ã¼k Ã§aplÄ± patlamara dayanÄ±klÄ± yapÄ±.";
                 break;
 
             case GameItemType.COVeCO2Scrubber:
                 itemName = "CO ve CO2 Scrubber";
-                itemDescription = "Hava solurken açığa çıkan karbondioksit ve karbonmonoksit gazlarını absorbe eden kimyasalların bir hava akışı ile bünyesinde toplamasını sağlayan cihaz.Belirli periyotlarda kimyasal değiştirilerek kullanım süresi uzatılıyor.";
+                itemDescription = "Hava solurken aÃ§Ä±ÄŸa Ã§Ä±kan karbondioksit ve karbonmonoksit gazlarÄ±nÄ± absorbe eden kimyasallarÄ±n bir hava akÄ±ÅŸÄ± ile bÃ¼nyesinde toplamasÄ±nÄ± saÄŸlayan cihaz.Belirli periyotlarda kimyasal deÄŸiÅŸtirilerek kullanÄ±m sÃ¼resi uzatÄ±lÄ±yor.";
                 break;
 
             case GameItemType.Klima:
                 itemName = "Klima";
-                itemDescription = "Birçok kişinin aynı kapalı ortamda uzun süre kalması havayı ısıtacağı için.Klima ile bu uygun şartlara getiriliyor.";
+                itemDescription = "BirÃ§ok kiÅŸinin aynÄ± kapalÄ± ortamda uzun sÃ¼re kalmasÄ± havayÄ± Ä±sÄ±tacaÄŸÄ± iÃ§in.Klima ile bu uygun ÅŸartlara getiriliyor.";
                 break;
 
             case GameItemType.AkrilikPencere:
                 itemName = "Akrilik pencere";
-                itemDescription = "Basınç farklarına ve kırılmalara dayanıklı akrilik cam.Dışarıdan ve içeriden gözlem yapmaya olanak sağlıyor.";
+                itemDescription = "BasÄ±nÃ§ farklarÄ±na ve kÄ±rÄ±lmalara dayanÄ±klÄ± akrilik cam.DÄ±ÅŸarÄ±dan ve iÃ§eriden gÃ¶zlem yapmaya olanak saÄŸlÄ±yor.";
                 break;
 
             case GameItemType.AkuDestegi:
-                itemName = "Akü desteği";
-                itemDescription = "Kabin sürekli tesis elektriğiyle besleniyor.Herhangi bir elektrik kesintisi durumunda akü devreye girerek elektirikle çalışan cihazlara Güç sağlıyor.";
+                itemName = "AkÃ¼ desteÄŸi";
+                itemDescription = "Kabin sÃ¼rekli tesis elektriÄŸiyle besleniyor.Herhangi bir elektrik kesintisi durumunda akÃ¼ devreye girerek elektirikle Ã§alÄ±ÅŸan cihazlara GÃ¼Ã§ saÄŸlÄ±yor.";
                 break;
 
             case GameItemType.IlkYardimKiti:
-                itemName = "İlk yardım kiti";
-                itemDescription = "Acil ve kısmı tıbbi destek amaçlı ilk yardım kiti.Pansuman malz. Birtakım ilaçlar vs.";
+                itemName = "Ä±lk yardÄ±m kiti";
+                itemDescription = "Acil ve kÄ±smÄ± tÄ±bbi destek amaÃ§lÄ± ilk yardÄ±m kiti.Pansuman malz. BirtakÄ±m ilaÃ§lar vs.";
                 break;
 
             case GameItemType.YanginTupu:
-                itemName = "Yangın tüpü";
-                itemDescription = "Küçük çaplı yangınlara müdehale için portatif yangın tüpü.";
+                itemName = "YangÄ±n tÃ¼pÃ¼";
+                itemDescription = "KÃ¼Ã§Ã¼k Ã§aplÄ± yangÄ±nlara mÃ¼dehale iÃ§in portatif yangÄ±n tÃ¼pÃ¼.";
                 break;
 
             case GameItemType.BankTipiKoltuk:
                 itemName = "Bank tipi koltuk ";
-                itemDescription = "Kullanımı Pratik üstü açılabilen içi gerekli ekipman ve yaşam malzemelerini su,yiyecek vs. barındıracak koltuk.";
+                itemDescription = "KullanÄ±mÄ± Pratik Ã¼stÃ¼ aÃ§Ä±labilen iÃ§i gerekli ekipman ve yaÅŸam malzemelerini su,yiyecek vs. barÄ±ndÄ±racak koltuk.";
                 break;
 
             case GameItemType.ReflectifYazilar:
-                itemName = "Reflektif yazılar";
-                itemDescription = "Karanlık maden ortamında bir ışık kaynağı ile parlayıp fark edilen uyarı ve ikaz yazıları.";
+                itemName = "Reflektif yazÄ±lar";
+                itemDescription = "KaranlÄ±k maden ortamÄ±nda bir Ä±ÅŸÄ±k kaynaÄŸÄ± ile parlayÄ±p fark edilen uyarÄ± ve ikaz yazÄ±larÄ±.";
                 break;
 
             case GameItemType.HavaGecirmeyenKapiKapak:
-                itemName = "Hava geçirmeyen kapı & kapak";
-                itemDescription = "Dışarıdan gelebilecek zararlı gazların kabine sızmasını önleyen conta ile izole edilmiş kapı.";
+                itemName = "Hava geÃ§irmeyen kapÄ± & kapak";
+                itemDescription = "DÄ±ÅŸarÄ±dan gelebilecek zararlÄ± gazlarÄ±n kabine sÄ±zmasÄ±nÄ± Ã¶nleyen conta ile izole edilmiÅŸ kapÄ±.";
                 break;
 
             case GameItemType.KimyasalTuvalet:
                 itemName = "";
-                itemDescription = "Acil durumlar için kullanılabilecek kısıtlı kapasitede portatif tuvalet.";
+                itemDescription = "Acil durumlar iÃ§in kullanÄ±labilecek kÄ±sÄ±tlÄ± kapasitede portatif tuvalet.";
                 break;
 
             case GameItemType.OksijenDestegi:
                 itemName = "Kimyasal tuvalet";
-                itemDescription = "Kabine dışarıdan verilen hava desteğinin kesintiye uğraması durumunda devreye giren depolanmış oksijen desteği.";
+                itemDescription = "Kabine dÄ±ÅŸarÄ±dan verilen hava desteÄŸinin kesintiye uÄŸramasÄ± durumunda devreye giren depolanmÄ±ÅŸ oksijen desteÄŸi.";
                 break;
 
             case GameItemType.KisiselKurtarmaCihazi:
-                itemName = "Kişisel Kurtarma Cihazı";
-                itemDescription = "Her personele bir adet verilmek üzere bulundurulan kişisel solunum cihazı.(Alternatif ek solunum desteği)";
+                itemName = "KiÅŸisel Kurtarma CihazÄ±";
+                itemDescription = "Her personele bir adet verilmek Ã¼zere bulundurulan kiÅŸisel solunum cihazÄ±.(Alternatif ek solunum desteÄŸi)";
                 break;
 
         }

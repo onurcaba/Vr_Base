@@ -80,9 +80,6 @@ public class GameManager : MonoBehaviour
         {
             ItemEnumSwitchCase(item);
 
-            Debug.Log(item);
-            Debug.Log(index2);
-
             // Loop itaration should be same as canvas count in scene
             for (int i = 0; i < 1; i++)
             {
